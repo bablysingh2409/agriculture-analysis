@@ -1,21 +1,21 @@
-
-import './App.css'
+import './App.css';
 import { MantineProvider } from '@mantine/core';
 import AgricultureDashboard from './components/AgricultureDashboard';
-import { theme } from './components/theme';
-
+import CropStatistics from './components/CropStats';
 
 function App() {
-
   return (
-    <>
-      <MantineProvider theme={theme}>
-        <div className="min-h-screen bg-gray-50">
-          <AgricultureDashboard />
+    <MantineProvider>
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto py-8 px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <AgricultureDashboard />
+            <CropStatistics />
+          </div>
         </div>
-      </MantineProvider>
-    </>
-  )
+      </div>
+    </MantineProvider>
+  );
 }
 
-export default App
+export default App;
