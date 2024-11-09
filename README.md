@@ -1,50 +1,81 @@
-# React + TypeScript + Vite
+# Indian Agriculture Analysis Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive dashboard for analyzing Indian agricultural data, featuring production trends and crop performance statistics from 1950 to 2020.
 
-Currently, two official plugins are available:
+## 📊 Screenshots
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Full Dashboard View
+![Dashboard Screenshot](./src/assets/dashboard-view.png)
 
-## Expanding the ESLint configuration
+### Individual Components
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+#### Production Trends Analysis
+![Production Trends](./src/assets/production-trends-analysis.png)
 
-- Configure the top-level `parserOptions` property like this:
+#### Crop Performance Analysis
+![Crop Performance](./src/assets/crop-performance-analysis.png)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🚀 Features
+
+### Production Trends Analysis
+- Year-wise analysis of crop production
+- Identifies highest and lowest producing crops for each year
+- Visual indicators for production trends
+- Clean and intuitive data presentation
+
+### Crop Performance Statistics
+- Comprehensive crop-wise performance metrics
+- Average yield calculations (Kg/Ha)
+- Cultivation area analysis
+- Sorted by yield performance
+
+## 💻 Technologies Used
+
+- **React.js** - Frontend framework
+- **TypeScript** - Type safety and better development experience
+- **Mantine UI** - Component library for consistent UI
+- **Tailwind CSS** - Utility-first CSS framework
+- **Lucide React** - Icon library
+
+## 🛠️ Project Structure
+
+```
+src/
+├── components/
+│   ├── AgricultureDashboard.tsx   # Production trends analysis
+│   └── CropStatistics.tsx         # Crop performance statistics
+├── data/
+│   └── data.json                  # Agricultural data
+├── App.tsx                        # Main application component
+└── index.tsx                      # Entry point
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 📋 Implementation Details
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Data Processing
+- Groups agricultural data by year and crop
+- Calculates averages and identifies trends
+- Implements sorting for better data visualization
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### UI Components
+- Responsive design for all screen sizes
+- Interactive tables with hover effects
+- Clear visual hierarchy
+- Consistent color scheme and typography
+
+## 🔧 Setup and Installation
+
+1. Clone the repository:
+```bash
+git clone [https://github.com/bablysingh2409/agriculture-analysis.git]
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
 ```

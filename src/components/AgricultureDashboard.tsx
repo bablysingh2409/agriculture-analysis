@@ -14,18 +14,25 @@ interface YearlyAnalysis {
     production: number;
   };
 }
-
 const AgricultureDashboard = () => {
+  // State to store processed yearly data
   const [yearlyData, setYearlyData] = useState<YearlyAnalysis[]>([]);
+  // State to track total number of years analyzed
   const [totalYears, setTotalYears] = useState(0);
 
   useEffect(() => {
+    /*
+     Processes raw agricultural data to extract yearly production statistics
+     Groups data by year and identifies max/min production crops
+     */
     const processData = () => {
+      // Group data by year
       const yearlyGroups = data.reduce((acc: Record<string, any[]>, item) => {
         const year = item.Year;
         if (!acc[year]) {
           acc[year] = [];
         }
+        // Only include items with valid production values
         if (item["Crop Production (UOM:t(Tonnes))"] !== "") {
           acc[year].push({
             cropName: item["Crop Name"],
@@ -35,8 +42,10 @@ const AgricultureDashboard = () => {
         return acc;
       }, {});
 
+      // Process each year's data to find max and min production
       const yearlyAnalysis = Object.entries(yearlyGroups).map(
         ([year, crops]) => {
+          // Sort crops by production value to identify max and min
           const sortedCrops = [...crops].sort(
             (a, b) => b.production - a.production
           );
@@ -55,6 +64,7 @@ const AgricultureDashboard = () => {
         }
       );
 
+      // Sort data chronologically by year
       yearlyAnalysis.sort((a, b) => {
         const yearA = a.year.match(/\d{4}/)?.[0] || "";
         const yearB = b.year.match(/\d{4}/)?.[0] || "";
@@ -71,7 +81,6 @@ const AgricultureDashboard = () => {
   return (
     <Paper shadow="sm" radius="md" p="md" className="h-full">
       <div className="space-y-6 mb-8">
-        {/* Main Title Section */}
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-3">
             <div className="bg-blue-50 p-2.5 rounded-xl">
@@ -93,7 +102,6 @@ const AgricultureDashboard = () => {
           </div>
         </div>
 
-        {/* Stats Summary */}
         <div className="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-emerald-50 rounded-lg">
@@ -153,7 +161,7 @@ const AgricultureDashboard = () => {
             <Table.Th style={{ width: "37.5%" }}>
               <div className="space-y-2">
                 <Text className="text-gray-700 font-semibold tracking-wide">
-                  Crop with Maximum Production in that Year{" "}
+                  Crop with Maximum Production in that Year
                 </Text>
               </div>
             </Table.Th>
@@ -166,6 +174,7 @@ const AgricultureDashboard = () => {
             </Table.Th>
           </Table.Tr>
         </Table.Thead>
+
         <Table.Tbody>
           {yearlyData.map((yearData) => (
             <Table.Tr key={yearData.year} className="hover:bg-gray-50">
@@ -179,13 +188,14 @@ const AgricultureDashboard = () => {
                   {yearData.year.replace("Financial Year (Apr - Mar), ", "")}
                 </Badge>
               </Table.Td>
+              {/* Maximum Production Crop Column */}
               <Table.Td>
                 <Text className="text-emerald-700 font-medium">
                   {yearData.maxProductionCrop.name}
                 </Text>
               </Table.Td>
+              {/* Minimum Production Crop Column */}
               <Table.Td>
-                {/* <Group gap="xs"> */}
                 <Text className="text-rose-700 font-medium">
                   {yearData.minProductionCrop.name}
                 </Text>

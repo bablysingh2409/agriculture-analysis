@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Table, Paper, Title, Text } from "@mantine/core";
 import { Sprout, LineChart, ArrowUpRight } from "lucide-react";
 import data from "../data.json";
-
 interface CropStats {
   cropName: string;
   averageYield: number;
@@ -10,17 +9,25 @@ interface CropStats {
 }
 
 const CropStatistics = () => {
+  // State to store processed crop statistics
   const [cropStats, setCropStats] = useState<CropStats[]>([]);
+  // State to track total number of unique crops analyzed
   const [totalCrops, setTotalCrops] = useState(0);
 
   useEffect(() => {
+    /*
+      Processes agricultural data to calculate crop performance metrics
+      Groups data by crop and calculates averages for yield and cultivation area
+     */
     const processData = () => {
+      // Group data by crop name
       const cropGroups = data.reduce((acc: Record<string, any[]>, item) => {
         const cropName = item["Crop Name"];
         if (!acc[cropName]) {
           acc[cropName] = [];
         }
 
+        // Only include records with valid yield and cultivation data
         if (
           item["Yield Of Crops (UOM:Kg/Ha(KilogramperHectare))"] !== "" &&
           item["Area Under Cultivation (UOM:Ha(Hectares))"] !== ""
@@ -36,11 +43,15 @@ const CropStatistics = () => {
         return acc;
       }, {});
 
+      // Calculate average statistics for each crop
       const statistics = Object.entries(cropGroups).map(
         ([cropName, records]) => {
+          // Calculate average yield for the crop
           const avgYield =
             records.reduce((sum, record) => sum + record.yield, 0) /
             records.length;
+          
+          // Calculate average cultivation area for the crop
           const avgCultivation =
             records.reduce((sum, record) => sum + record.cultivation, 0) /
             records.length;
@@ -53,6 +64,7 @@ const CropStatistics = () => {
         }
       );
 
+      // Sort crops by average yield in descending order
       statistics.sort((a, b) => b.averageYield - a.averageYield);
       setCropStats(statistics);
       setTotalCrops(statistics.length);
@@ -64,7 +76,6 @@ const CropStatistics = () => {
   return (
     <Paper shadow="sm" radius="md" p="md" className="h-full">
       <div className="space-y-6 mb-8">
-        {/* Main Title Section */}
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-3">
             <div className="bg-green-50 p-2.5 rounded-xl">
@@ -152,17 +163,20 @@ const CropStatistics = () => {
             </Table.Th>
           </Table.Tr>
         </Table.Thead>
+
         <Table.Tbody>
           {cropStats.map((stat) => (
             <Table.Tr
               key={stat.cropName}
               className="hover:bg-gray-50 transition-colors duration-150"
             >
+              {/* Crop Name Column */}
               <Table.Td style={{ width: "30%", textAlign: "center" }}>
                 <Text className="font-medium text-gray-700">
                   {stat.cropName}
                 </Text>
               </Table.Td>
+              {/* Average Yield Column */}
               <Table.Td style={{ width: "35%", textAlign: "center" }}>
                 <div className="flex justify-center">
                   <div className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full">
@@ -172,6 +186,7 @@ const CropStatistics = () => {
                   </div>
                 </div>
               </Table.Td>
+              {/* Average Cultivation Area Column */}
               <Table.Td style={{ width: "35%", textAlign: "center" }}>
                 <div className="flex justify-center">
                   <div className="px-3 py-1.5 bg-purple-50 text-purple-700 rounded-full">
