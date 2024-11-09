@@ -126,23 +126,7 @@ const CropStatistics = () => {
       </div>
 
       <Table
-        striped
-        highlightOnHover
-        withTableBorder
-        withColumnBorders
-        styles={{
-          th: {
-            backgroundColor: "var(--mantine-color-gray-0)",
-            padding: "var(--mantine-spacing-md)",
-            fontSize: "var(--mantine-font-size-sm)",
-            lineHeight: "1.5",
-          },
-          td: {
-            padding: "var(--mantine-spacing-md)",
-            borderBottom: "1px solid var(--mantine-color-gray-2)",
-            verticalAlign: "middle",
-          },
-        }}
+         className="border border-gray-300 p-4 rounded-lg"
       >
         <Table.Thead>
           <Table.Tr>
