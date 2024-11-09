@@ -99,23 +99,15 @@ const AgricultureDashboard = () => {
             <Table.Th className="w-[37.5%]">
               <div className="space-y-1">
                 <Text className="text-gray-700 font-semibold tracking-wide">
-                  {/* Highest Production Crop */}
                   Crop with maximum production (tonnes)
                 </Text>
-                {/* <Text size="xs" className="text-gray-500">
-                  Crop with maximum production (tonnes)
-                </Text> */}
               </div>
             </Table.Th>
             <Table.Th className="w-[37.5%]">
               <div className="space-y-1">
                 <Text className="text-gray-700 font-semibold tracking-wide">
-                  {/* Lowest Production Crop */}
                   Crop with minimum production (tonnes)
                 </Text>
-                {/* <Text size="xs" className="text-gray-500">
-                  Crop with minimum production (tonnes)
-                </Text> */}
               </div>
             </Table.Th>
           </Table.Tr>
@@ -138,15 +130,6 @@ const AgricultureDashboard = () => {
                   <Text className="text-emerald-700 font-medium">
                     {yearData.maxProductionCrop.name}
                   </Text>
-                  {/* <div className="flex items-center gap-2">
-                    <Badge 
-                      color="teal" 
-                      variant="light"
-                      className="px-3 py-1"
-                    >
-                      {yearData.maxProductionCrop.production.toLocaleString()} tonnes
-                    </Badge>
-                  </div> */}
                 </div>
               </Table.Td>
               <Table.Td>
@@ -154,15 +137,6 @@ const AgricultureDashboard = () => {
                   <Text className="text-rose-700 font-medium">
                     {yearData.minProductionCrop.name}
                   </Text>
-                  {/* <div className="flex items-center gap-2">
-                    <Badge 
-                      color="red" 
-                      variant="light"
-                      className="px-3 py-1"
-                    >
-                      {yearData.minProductionCrop.production.toLocaleString()} tonnes
-                    </Badge>
-                  </div> */}
                 </div>
               </Table.Td>
             </Table.Tr>

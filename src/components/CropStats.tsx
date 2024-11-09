@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Table, Paper, Title, Text } from '@mantine/core';
-import { Sprout } from "lucide-react";
+import { Sprout, LineChart, ArrowUpRight } from "lucide-react";
 import data from '../data.json'
 
 interface CropStats {
@@ -11,6 +11,7 @@ interface CropStats {
 
 const CropStatistics = () => {
   const [cropStats, setCropStats] = useState<CropStats[]>([]);
+  const [totalCrops, setTotalCrops] = useState(0);
 
   useEffect(() => {
     const processData = () => {
@@ -45,6 +46,7 @@ const CropStatistics = () => {
 
       statistics.sort((a, b) => b.averageYield - a.averageYield);
       setCropStats(statistics);
+      setTotalCrops(statistics.length);
     };
 
     processData();
@@ -52,15 +54,50 @@ const CropStatistics = () => {
 
   return (
     <Paper shadow="sm" radius="md" p="md" className="h-full">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="bg-green-50 p-2 rounded-full">
-          <Sprout className="h-6 w-6 text-green-600" />
+      <div className="space-y-6 mb-8">
+        {/* Main Title Section */}
+        <div className="flex items-start justify-between">
+          <div className="flex items-start gap-3">
+            <div className="bg-green-50 p-2.5 rounded-xl">
+              <Sprout className="h-7 w-7 text-green-600" />
+            </div>
+            <div>
+              <Title order={2} className="text-gray-800 mb-2">
+                Crop Performance Analysis
+              </Title>
+              <Text size="sm" className="text-gray-500">
+                Comprehensive analysis of crop yields and cultivation areas
+              </Text>
+            </div>
+          </div>
+          <div className="bg-blue-50 px-4 py-2 rounded-lg">
+            <Text className="text-blue-700 font-semibold">
+              {totalCrops} Crops Analyzed
+            </Text>
+          </div>
         </div>
-        <Title order={2} className="text-gray-800">Crop Performance Analysis</Title>
+
+        <div className="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-emerald-50 rounded-lg">
+              <LineChart className="h-5 w-5 text-emerald-600" />
+            </div>
+            <div>
+              <Text size="sm" className="text-gray-500">Time Period</Text>
+              <Text className="font-semibold text-gray-700">1950-2020</Text>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-purple-50 rounded-lg">
+              <ArrowUpRight className="h-5 w-5 text-purple-600" />
+            </div>
+            <div>
+              <Text size="sm" className="text-gray-500">Data Type</Text>
+              <Text className="font-semibold text-gray-700">Average Performance</Text>
+            </div>
+          </div>
+        </div>
       </div>
-      <Text size="sm" c="dimmed" className="mb-6">
-        Average yield and cultivation area statistics (1950-2020)
-      </Text>
 
       <Table 
         striped 
@@ -106,8 +143,8 @@ const CropStatistics = () => {
               key={stat.cropName}
               className="hover:bg-gray-50 transition-colors duration-150"
             >
-              <Table.Td style={{ width: '30%' }}>
-                <Text className="font-medium text-gray-500">
+              <Table.Td style={{ width: '30%', textAlign: 'center' }}>
+                <Text className="font-medium text-gray-700">
                   {stat.cropName}
                 </Text>
               </Table.Td>
